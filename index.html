@@ -10,6 +10,10 @@
 <img id="card4" width="128px" onclick="clickCard(4)">
 <img id="card5" width="128px" onclick="clickCard(5)">
 
+<br><br><br>
+
+<img id="card-extra" width="128px">
+
 <button onclick="discardCards()" id="discard-button" style="display:none;">Discard</button>
 </body>
 
@@ -52,27 +56,35 @@ for (i=0; i<6; i++) {
 var selectedCards = [];
 
 function clickCard(val) {
-  if (selectedCards.length < 2) {
 
     var cardSrc = document.getElementById("card" + val).src;
     cardSrc = cardSrc.slice(0, -4); 
     var value = getStringAfterLastChar(cardSrc, "_");
     //alert(value);
-    document.getElementById("card" + val).style.opacity = "0.5";
-  
-    selectedCards.push(val);
+    
+    if (selectedCards.indexOf(val) >= 0) {
+      document.getElementById("card" + val).style.opacity = "1";
+      selectedCards.splice(selectedCards.indexOf(val), 1);
+    } else {
+      document.getElementById("card" + val).style.opacity = "0.5";
+      selectedCards.push(val);
+    }
+    
   
     if (selectedCards.length == 2) {
       document.getElementById("discard-button").style.display = "block";
+    } else {
+      document.getElementById("discard-button").style.display = "none";
     }
-  } else {
-    document.getElementById("discard-button").style.display = "block";
-  }
 }
 
 function discardCards() {
   document.getElementById("card" + selectedCards[0]).src = "";
   document.getElementById("card" + selectedCards[1]).src = "";
+  
+  document.getElementById("card-extra").src = src="https://raw.githubusercontent.com/hanhaechi/playing-cards/refs/heads/master/" + deck[6] + ".png";;
+  
+  
 }
 
 function getStringAfterLastChar(originalString, character) {
