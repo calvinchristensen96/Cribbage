@@ -13,6 +13,7 @@
 <br><br><br>
 
 <img id="card-extra" width="128px">
+<div id="value" style="color:white"></div>
 
 <button onclick="discardCards()" id="discard-button" style="display:none;">Discard</button>
 </body>
@@ -55,11 +56,16 @@ for (i=0; i<6; i++) {
 
 var selectedCards = [];
 
+var play = false;
+
 function clickCard(val) {
 
     var cardSrc = document.getElementById("card" + val).src;
     cardSrc = cardSrc.slice(0, -4); 
     var value = getStringAfterLastChar(cardSrc, "_");
+
+  if (!play) {
+
     //alert(value);
     
     if (selectedCards.indexOf(val) >= 0) {
@@ -76,6 +82,15 @@ function clickCard(val) {
     } else {
       document.getElementById("discard-button").style.display = "none";
     }
+    
+  } else {
+    if (value == "J" || value == "Q" || value == "K") {
+      value = 10;
+    } else if (value == "A") {
+      value = 1;
+    }
+    document.getElementById("value").innerHTML = value;
+  }
 }
 
 function discardCards() {
@@ -84,7 +99,7 @@ function discardCards() {
   
   document.getElementById("card-extra").src = src="https://raw.githubusercontent.com/hanhaechi/playing-cards/refs/heads/master/" + deck[6] + ".png";;
   
-  
+  play = true;
 }
 
 function getStringAfterLastChar(originalString, character) {
