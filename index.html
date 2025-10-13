@@ -10,9 +10,8 @@
 <img id="card4" width="128px" onclick="clickCard(4)">
 <img id="card5" width="128px" onclick="clickCard(5)">
 
-<br><br><br>
 
-<img id="card-extra" width="128px">
+<img id="card-extra" width="128px" style="padding-left: 12px; border-left: white 1px solid; margin-left: 12px;">
 <div id="value" style="color:white"></div>
 
 <button onclick="discardCards()" id="discard-button" style="display:none;">Discard</button>
@@ -100,6 +99,7 @@ function discardCards() {
   document.getElementById("card-extra").src = src="https://raw.githubusercontent.com/hanhaechi/playing-cards/refs/heads/master/" + deck[6] + ".png";;
   
   play = true;
+  document.getElementById("discard-button").style = "display: none;";
 }
 
 function getStringAfterLastChar(originalString, character) {
