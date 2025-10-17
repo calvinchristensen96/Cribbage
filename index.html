@@ -62,7 +62,7 @@ function clickCard(val) {
     var cardSrc = document.getElementById("card" + val).src;
     cardSrc = cardSrc.slice(0, -4); 
     var value = getStringAfterLastChar(cardSrc, "_");
-
+    
   if (!play) {
 
     //alert(value);
@@ -92,14 +92,40 @@ function clickCard(val) {
   }
 }
 
+var hand = [];
+
 function discardCards() {
+  var tmpHand;
+  var j;
+  for (j=0;j<6;j++) {
+    if(j == selectedCards[0] || j == selectedCards[1]) {
+      
+    } else {
+      tmpHand = document.getElementById("card" + j).src.slice(0, -4); 
+      hand.push(tmpHand.substring(tmpHand.lastIndexOf('/')+1));
+    }
+    
+  }
+  
   document.getElementById("card" + selectedCards[0]).src = "";
   document.getElementById("card" + selectedCards[1]).src = "";
   
   document.getElementById("card-extra").src = src="https://raw.githubusercontent.com/hanhaechi/playing-cards/refs/heads/master/" + deck[6] + ".png";;
   
+  tmpHand = document.getElementById("card-extra").src.slice(0, -4); 
+  hand.push(tmpHand.substring(tmpHand.lastIndexOf('/')+1));
+  
   play = true;
-  document.getElementById("discard-button").style = "display: none;";
+  document.getElementById("discard-button").style = "display: none;";  
+  
+  alert(hand);
+}
+
+
+
+function score() {
+  //pairs
+
 }
 
 function getStringAfterLastChar(originalString, character) {
@@ -109,6 +135,7 @@ function getStringAfterLastChar(originalString, character) {
   }
   return originalString.slice(lastIndex + 1);
 }
+
 
 
 
