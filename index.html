@@ -12,12 +12,23 @@
 
 
 <img id="card-extra" width="128px" style="padding-left: 12px; border-left: white 1px solid; margin-left: 12px;">
-<div id="value" style="color:white"></div>
+<div id="value" style="color:white">
+  Fifteen: <span id="score-fifteen">2</span><br>
+  Pair: <span id="score-pair">2</span><br>
+  Royal Pair: <span id="score-royal">6</span><br>
+  Double Royal Pair: <span id="score-double">12</span><br>
+  Run: <span id="score-run">1</span><br>
+  Flush: <span id="score-flush">1</span><br>
+</div>
+
 
 <button onclick="discardCards()" id="discard-button" style="display:none;">Discard</button>
 </body>
 
 <script>
+// Fifteen, Pair, Royal, Double, Run, Flush
+var scores = [0,0,0,0,0,0];
+
 var deck = [
     "spades_A", "spades_K", "spades_Q", "spades_J", "spades_10",
     "spades_9", "spades_8", "spades_7", "spades_6", "spades_5",
@@ -136,7 +147,15 @@ function getStringAfterLastChar(originalString, character) {
   return originalString.slice(lastIndex + 1);
 }
 
-
+function scorePairs(cards) {
+  let score = 0;
+  for (let i = 0; i < cards.length; i++) {
+    for (let j = i + 1; j < cards.length; j++) {
+      if (cards[i].rank === cards[j].rank) score += 2;
+    }
+  }
+  return score;
+}
 
 
 
