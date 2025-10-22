@@ -13,12 +13,12 @@
 
 <img id="card-extra" width="128px" style="padding-left: 12px; border-left: white 1px solid; margin-left: 12px;">
 <div id="value" style="color:white">
-  Fifteen: <span id="score-fifteen">2</span><br>
-  Pair: <span id="score-pair">2</span><br>
-  Royal Pair: <span id="score-royal">6</span><br>
-  Double Royal Pair: <span id="score-double">12</span><br>
-  Run: <span id="score-run">1</span><br>
-  Flush: <span id="score-flush">1</span><br>
+  Fifteen: <span id="score-fifteen">0</span><br>
+  Pair: <span id="score-pair">0</span><br>
+  Royal Pair: <span id="score-royal">0</span><br>
+  Double Royal Pair: <span id="score-double">0</span><br>
+  Run: <span id="score-run">0</span><br>
+  Flush: <span id="score-flush">0</span><br>
 </div>
 
 
@@ -26,6 +26,13 @@
 </body>
 
 <script>
+function Card(suit, rank) {
+  this.rank = rank;
+  this.suit = suit;
+}
+
+var cardHand = [];
+
 // Fifteen, Pair, Royal, Double, Run, Flush
 var scores = [0,0,0,0,0,0];
 
@@ -129,12 +136,27 @@ function discardCards() {
   play = true;
   document.getElementById("discard-button").style = "display: none;";  
   
-  alert(hand);
+  const card0 = new Card(hand[0].substring(0, hand[0].length-2), hand[0].substring(hand[0].length-1,hand[0].length));
+  const card1 = new Card(hand[1].substring(0, hand[1].length-2), hand[1].substring(hand[1].length-1,hand[1].length));
+  const card2 = new Card(hand[2].substring(0, hand[2].length-2), hand[2].substring(hand[2].length-1,hand[2].length));
+  const card3 = new Card(hand[3].substring(0, hand[3].length-2), hand[3].substring(hand[3].length-1,hand[3].length));
+  const card4 = new Card(hand[4].substring(0, hand[4].length-2), hand[4].substring(hand[4].length-1,hand[4].length));
+  
+  cardHand.push(card0);
+  cardHand.push(card1);
+  cardHand.push(card2);
+  cardHand.push(card3);
+  cardHand.push(card4);
+  
+  score();
+  //alert(cardHand);
 }
 
 
 
 function score() {
+  document.getElementById("score-pair").innerHTML = scorePairs(cardHand);
+  //document.getElementById("score-fifteen").innerHTML = scoreFifteens(cardHand);
   //pairs
 
 }
@@ -149,13 +171,41 @@ function getStringAfterLastChar(originalString, character) {
 
 function scorePairs(cards) {
   let score = 0;
-  for (let i = 0; i < cards.length; i++) {
-    for (let j = i + 1; j < cards.length; j++) {
-      if (cards[i].rank === cards[j].rank) score += 2;
+  for (let i = 0; i < cardHand.length; i++) {
+    for (let j = i + 1; j < cardHand.length; j++) {
+      if (cardHand[i].rank === cardHand[j].rank) score += 2;
     }
   }
   return score;
 }
+
+
+
+//  Fifteens
+function scoreFifteens(cards) {
+  let values = [cardHand[0].rank, cardHand[1].rank, cardHand[2].rank, cardHand[3].rank, cardHand[4].rank];
+  let combos = getAllCombos(values);
+  let score = combos.filter(sum => sum === 15).length * 2;
+  return score;
+}
+
+function getAllCombos(values) {
+  let sums = [];
+  const n = values.length;
+  for (let i = 1; i < (1 << n); i++) {
+    let sum = 0;
+    for (let j = 0; j < n; j++) {
+      if (i & (1 << j)) sum += values[j];
+    }
+    sums.push(sum);
+  }
+  return sums;
+}
+
+
+
+
+
 
 
 
