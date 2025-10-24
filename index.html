@@ -156,6 +156,8 @@ function discardCards() {
 
 function score() {
   document.getElementById("score-pair").innerHTML = scorePairs(cardHand);
+  
+  document.getElementById("score-flush").innerHTML = scoreFlush(cardHand);
   //document.getElementById("score-fifteen").innerHTML = scoreFifteens(cardHand);
   //pairs
 
@@ -187,6 +189,33 @@ function scoreFifteens(cards) {
   let combos = getAllCombos(values);
   let score = combos.filter(sum => sum === 15).length * 2;
   return score;
+}
+
+//Flush 
+function scoreFlush(cards) {
+  var suitsCount = [0,0,0,0];
+  var i;
+  for (i=0;i<cards.length;i++) {
+    if (cards[i].suit == "spades") {
+      suitsCount[0]++;
+    } else if (cards[i].suit == "clubs") {
+      suitsCount[1]++;
+    } else if (cards[i].suit == "hearts") {
+      suitsCount[2]++;
+    } else if (cards[i].suit == "diamonds") {
+      suitsCount[3]++;
+    }
+  }
+
+  if (suitsCount.indexOf(4) >= 0) {
+    return 4;
+  } else if (suitsCount.indexOf(5) >= 0) {
+    return 5;
+  } else {
+    return 0;
+  }
+  
+  
 }
 
 function getAllCombos(values) {
