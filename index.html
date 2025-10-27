@@ -158,7 +158,7 @@ function score() {
   document.getElementById("score-pair").innerHTML = scorePairs(cardHand);
   
   document.getElementById("score-flush").innerHTML = scoreFlush(cardHand);
-  //document.getElementById("score-fifteen").innerHTML = scoreFifteens(cardHand);
+  document.getElementById("score-fifteen").innerHTML = scoreFifteens(cardHand);
   //pairs
 
 }
@@ -181,12 +181,29 @@ function scorePairs(cards) {
   return score;
 }
 
-
+function scoreRoyalPairs(cards) {
+  let score = 0;
+  for (let i = 0; i < cardHand.length; i++) {
+    for (let j = i + 1; j < cardHand.length; j++) {
+      if (cardHand[i].rank === cardHand[j].rank) score += 2;
+    }
+  }
+  return score;
+}
 
 //  Fifteens
 function scoreFifteens(cards) {
-  let values = [cardHand[0].rank, cardHand[1].rank, cardHand[2].rank, cardHand[3].rank, cardHand[4].rank];
-  let combos = getAllCombos(values);
+  let tempValues = [];
+  for(let i = 0; i < cardHand.length; i++) {
+    if (cardHand[i].rank == "J" || cardHand[i].rank == "Q" || cardHand[i].rank == "K" || cardHand[i].rank == 10 ) {
+      tempValues.push(10);
+    } else {
+      tempValues.push(cardHand[i].rank);
+    }
+  }
+
+  alert(tempValues);
+  let combos = getAllCombos(tempValues);
   let score = combos.filter(sum => sum === 15).length * 2;
   return score;
 }
