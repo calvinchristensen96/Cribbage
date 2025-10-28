@@ -195,7 +195,7 @@ function scoreRoyalPairs(cards) {
 function scoreFifteens(cards) {
   let tempValues = [];
   for(let i = 0; i < cardHand.length; i++) {
-    if (cardHand[i].rank == "J" || cardHand[i].rank == "Q" || cardHand[i].rank == "K" || cardHand[i].rank == 10 ) {
+    if (cardHand[i].rank == "J" || cardHand[i].rank == "Q" || cardHand[i].rank == "K" || cardHand[i].rank == 0 ) {
       tempValues.push(10);
     } else {
       tempValues.push(cardHand[i].rank);
@@ -241,10 +241,11 @@ function getAllCombos(values) {
   for (let i = 1; i < (1 << n); i++) {
     let sum = 0;
     for (let j = 0; j < n; j++) {
-      if (i & (1 << j)) sum += values[j];
+      if (i & (1 << j)) sum += parseInt(values[j]);
     }
     sums.push(sum);
   }
+  //alert(sums);
   return sums;
 }
 
