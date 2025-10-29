@@ -159,6 +159,7 @@ function score() {
   
   document.getElementById("score-flush").innerHTML = scoreFlush(cardHand);
   document.getElementById("score-fifteen").innerHTML = scoreFifteens(cardHand);
+  document.getElementById("score-run").innerHTML = scoreRun(cardHand);
   //pairs
 
 }
@@ -202,7 +203,7 @@ function scoreFifteens(cards) {
     }
   }
 
-  alert(tempValues);
+  //alert(tempValues);
   let combos = getAllCombos(tempValues);
   let score = combos.filter(sum => sum === 15).length * 2;
   return score;
@@ -231,8 +232,28 @@ function scoreFlush(cards) {
   } else {
     return 0;
   }
-  
-  
+}
+
+function scoreRun(cards) {
+  let tempValues = [];
+  for(let i = 0; i < cardHand.length; i++) {
+    if (cardHand[i].rank == "J") {
+      tempValues.push(11);
+    } else if (cardHand[i].rank == "Q") {
+      tempValues.push(12);
+    } else if (cardHand[i].rank == "K") {
+      tempValues.push(13);
+    } else if (cardHand[i].rank == "A") {
+      tempValues.push(1);
+    } else {
+      tempValues.push(cardHand[i].rank);
+    }
+  }
+
+  tempValues = tempValues.sort(function (a, b) {  return a - b;  });
+//  alert(tempValues);
+  let score = 1;
+  return score;
 }
 
 function getAllCombos(values) {
