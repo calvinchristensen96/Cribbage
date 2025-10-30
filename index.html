@@ -198,6 +198,8 @@ function scoreFifteens(cards) {
   for(let i = 0; i < cardHand.length; i++) {
     if (cardHand[i].rank == "J" || cardHand[i].rank == "Q" || cardHand[i].rank == "K" || cardHand[i].rank == 0 ) {
       tempValues.push(10);
+    } else if (cardHand[i].rank == "A") {
+      tempValues.push(1);
     } else {
       tempValues.push(cardHand[i].rank);
     }
