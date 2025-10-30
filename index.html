@@ -238,6 +238,7 @@ function scoreFlush(cards) {
 
 function scoreRun(cards) {
   let tempValues = [];
+  let run = 0;
   for(let i = 0; i < cardHand.length; i++) {
     if (cardHand[i].rank == "J") {
       tempValues.push(11);
@@ -247,15 +248,24 @@ function scoreRun(cards) {
       tempValues.push(13);
     } else if (cardHand[i].rank == "A") {
       tempValues.push(1);
+    } else if (cardHand[i].rank == "0") {
+      tempValues.push(10);
     } else {
       tempValues.push(cardHand[i].rank);
     }
   }
 
   tempValues = tempValues.sort(function (a, b) {  return a - b;  });
-//  alert(tempValues);
+  alert(tempValues);
+  
+  for (let i = 0; i < tempValues.length - 1; i++) {
+    if (tempValues[i] + 1 == tempValues[i+1]) {
+      run++;
+    }
+  }
   let score = 1;
-  return score;
+  alert(run);
+  return run;
 }
 
 function getAllCombos(values) {
